@@ -4,6 +4,7 @@
   import Editor from './lib/components/Editor.svelte'
   import Preview from './lib/components/Preview.svelte'
   import CopyButton from './lib/components/CopyButton.svelte'
+  import ExportMenu from './lib/components/ExportMenu.svelte'
   import Snackbar from './lib/components/Snackbar.svelte'
   import { convertMarkdown } from './lib/utils/markdown'
   import { initTheme } from './lib/stores/theme'
@@ -12,6 +13,7 @@
   let markdown = $state('')
   let html = $state('')
   let showSnackbar = $state(false)
+  let snackbarMessage = $state('复制成功，可直接粘贴到微信公众号')
   let previewElement: HTMLElement | null = $state(null)
 
   // 同步滚动控制
@@ -45,10 +47,27 @@
   }
 
   function handleCopySuccess() {
+    snackbarMessage = '复制成功，可直接粘贴到微信公众号'
     showSnackbar = true
     setTimeout(() => {
       showSnackbar = false
     }, 3000)
+  }
+
+  function handleExportSuccess(format: string) {
+    snackbarMessage = `${format} 导出成功`
+    showSnackbar = true
+    setTimeout(() => {
+      showSnackbar = false
+    }, 3000)
+  }
+
+  function handleExportError(format: string, error: string) {
+    snackbarMessage = `${format} 导出失败: ${error}`
+    showSnackbar = true
+    setTimeout(() => {
+      showSnackbar = false
+    }, 5000)
   }
 
   onMount(() => {
@@ -103,9 +122,16 @@
   />
 </main>
 
-<CopyButton
-  targetElement={previewElement}
-  onSuccess={handleCopySuccess}
-/>
+<div class="action-buttons">
+  <ExportMenu
+    targetElement={previewElement}
+    onSuccess={handleExportSuccess}
+    onError={handleExportError}
+  />
+  <CopyButton
+    targetElement={previewElement}
+    onSuccess={handleCopySuccess}
+  />
+</div>
 
-<Snackbar visible={showSnackbar} />
+<Snackbar visible={showSnackbar} message={snackbarMessage} />
