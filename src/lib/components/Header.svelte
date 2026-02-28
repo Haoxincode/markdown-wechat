@@ -1,5 +1,6 @@
 <script lang="ts">
   import { currentTheme, toggleTheme } from '../stores/theme'
+  import ThemeSelector from './ThemeSelector.svelte'
 </script>
 
 <header class="header">
@@ -9,6 +10,8 @@
   </a>
 
   <div class="header-controls">
+    <ThemeSelector />
+
     <button class="theme-toggle" onclick={toggleTheme} aria-label="切换主题">
       {#if $currentTheme === 'dark'}
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

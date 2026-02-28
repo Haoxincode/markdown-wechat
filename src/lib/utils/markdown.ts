@@ -16,6 +16,7 @@ import 'prismjs/components/prism-sql'
 import 'prismjs/components/prism-docker'
 import { processTaskList } from '../plugins/tasklist'
 import { processFootnotes } from '../plugins/footnote'
+import { appendUrlFootnotes } from '../plugins/url-footnotes'
 
 // 配置 marked
 const renderer = new marked.Renderer()
@@ -85,6 +86,9 @@ export function convertMarkdown(markdown: string): string {
     }
     return `<li><span><span>${content}</span></span></li>`
   })
+
+  // 收集外部链接，追加到文末作为引用
+  html = appendUrlFootnotes(html)
 
   return html
 }

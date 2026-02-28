@@ -49,6 +49,24 @@
 
   --color-code-bg: #1e293b;
   --color-code-text: #e2e8f0;
+
+  /* Content theme defaults (classic) */
+  --content-font: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
+  --content-heading-font: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
+  --content-code-font: 'Source Code Pro', 'JetBrains Mono', 'Fira Code', monospace;
+  --content-accent: #1a1a1a;
+  --content-text: #2c2c2c;
+  --content-heading: #111111;
+  --content-muted: #666666;
+  --content-link: #1a56db;
+  --content-blockquote-bg: #f9f9f7;
+  --content-blockquote-border: #c9c9c9;
+  --content-code-bg: #f5f5f0;
+  --content-code-text: #b5432a;
+  --content-table-border: #d4d4d4;
+  --content-table-header-bg: #f0f0ec;
+  --content-hr: #d4d4d4;
+  --content-preview-bg: #ffffff;
 }
 
 /* Light theme */
@@ -338,18 +356,18 @@ html, body {
   flex: 1;
   overflow-y: auto;
   padding: 2rem;
-  background: var(--color-preview-bg);
+  background: var(--content-preview-bg, var(--color-preview-bg));
   transition: background-color 0.3s ease;
 }
 
 .preview-wrapper {
   max-width: 700px;
   margin: 0 auto;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--content-font);
   font-size: 15px;
   line-height: 1.8;
-  color: var(--color-preview-text);
-  transition: color 0.3s ease;
+  color: var(--content-text);
+  transition: all 0.3s ease;
 }
 
 /* Preview typography */
@@ -357,41 +375,66 @@ html, body {
 .preview-wrapper h2,
 .preview-wrapper h3,
 .preview-wrapper h4 {
+  font-family: var(--content-heading-font);
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.35;
   margin-top: 2em;
   margin-bottom: 0.75em;
-  color: var(--color-preview-text);
+  color: var(--content-heading);
 }
 
-.preview-wrapper h1 { font-size: 1.75rem; }
-.preview-wrapper h2 { font-size: 1.5rem; }
-.preview-wrapper h3 { font-size: 1.25rem; }
-.preview-wrapper h4 { font-size: 1.125rem; }
+.preview-wrapper h1 {
+  font-size: 1.75rem;
+  padding-bottom: 0.4em;
+  border-bottom: 2px solid var(--content-hr);
+}
+
+.preview-wrapper h2 {
+  font-size: 1.4rem;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--content-hr);
+}
+
+.preview-wrapper h3 { font-size: 1.2rem; }
+.preview-wrapper h4 { font-size: 1.05rem; }
 
 .preview-wrapper p {
   margin-bottom: 1.25em;
+  text-align: justify;
+}
+
+.preview-wrapper strong {
+  font-weight: 700;
+  color: var(--content-heading);
 }
 
 .preview-wrapper a {
-  color: var(--color-accent);
+  color: var(--content-link);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease;
 }
 
 .preview-wrapper a:hover {
-  border-bottom-color: var(--color-accent);
+  border-bottom-color: var(--content-link);
 }
 
 .preview-wrapper blockquote {
   margin: 1.5em 0;
   padding: 1rem 1.25rem;
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(14, 165, 233, 0.1) 100%);
-  border-left: 4px solid var(--color-accent);
-  border-radius: 0 8px 8px 0;
+  background: var(--content-blockquote-bg);
+  border-left: 4px solid var(--content-blockquote-border);
+  border-radius: 0 4px 4px 0;
   font-style: italic;
-  color: var(--color-text-muted);
+  color: var(--content-muted);
+}
+
+.preview-wrapper blockquote p {
+  margin-bottom: 0.5em;
+}
+
+.preview-wrapper blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 .preview-wrapper ul,
@@ -410,30 +453,30 @@ html, body {
 }
 
 .preview-wrapper code:not(pre code) {
-  font-family: var(--font-mono);
-  font-size: 0.875em;
-  background: var(--color-code-bg);
-  color: var(--color-accent);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
+  font-family: var(--content-code-font);
+  font-size: 0.85em;
+  background: var(--content-code-bg);
+  color: var(--content-code-text);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
   font-weight: 500;
 }
 
 .preview-wrapper pre {
   margin: 1.5em 0;
   padding: 1.25rem;
-  background: var(--color-code-bg);
-  border-radius: 12px;
+  background: var(--content-code-bg);
+  border-radius: 6px;
   overflow-x: auto;
   position: relative;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--content-table-border);
 }
 
 .preview-wrapper pre code {
-  font-family: var(--font-mono);
+  font-family: var(--content-code-font);
   font-size: 13px;
   line-height: 1.6;
-  color: var(--color-code-text);
+  color: var(--content-code-text);
 }
 
 .preview-wrapper table {
@@ -447,18 +490,18 @@ html, body {
 .preview-wrapper td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--color-preview-border);
+  border-bottom: 1px solid var(--content-table-border);
 }
 
 .preview-wrapper th {
   font-weight: 600;
-  background: rgba(0, 0, 0, 0.02);
-  color: var(--color-text-muted);
+  background: var(--content-table-header-bg);
+  color: var(--content-muted);
 }
 
 .preview-wrapper img {
   max-width: 100%;
-  border-radius: 8px;
+  border-radius: 4px;
   margin: 1.5em 0;
 }
 
@@ -466,7 +509,7 @@ html, body {
   margin: 2em 0;
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  background: var(--content-hr);
 }
 
 /* Task list */
@@ -600,10 +643,10 @@ html, body {
   display: inline-block;
   width: 2.5em;
   margin-right: 1em;
-  color: var(--color-text-muted);
+  color: var(--content-muted);
   text-align: right;
   user-select: none;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 /* Responsive */
@@ -640,6 +683,14 @@ html, body {
   .copy-button {
     padding: 0.75rem 1rem;
   }
+}
+
+/* URL footnote references */
+.preview-wrapper .url-footnote {
+  color: var(--content-link);
+  font-size: 0.75em;
+  margin-left: 2px;
+  cursor: default;
 }
 
 /* Animations */

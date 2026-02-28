@@ -1,121 +1,33 @@
-# Markdown WeChat
+# Kreuzberg 正式发布 LangChain 集成
 
-一款现代化的 Markdown 转微信公众号格式化工具，让你的文章在公众号中呈现最佳效果。
+我们刚刚发布了 Kreuzberg 的 LangChain 集成插件，在此与大家分享。
 
-> 写作应该专注于内容本身，格式化交给工具来处理。
+GitHub 地址：https://github.com/kreuzberg-dev/langchain-kreuzberg
 
-## 功能特性
+## Kreuzberg 是什么
 
-- **实时预览** - 左侧编辑，右侧即时呈现效果
-- **一键复制** - 点击复制按钮，直接粘贴到公众号
-- **亮暗主题** - 支持亮色/暗色模式切换
-- **同步滚动** - 编辑区与预览区联动滚动
+Kreuzberg 是一个开源的文档智能框架，核心由 Rust 编写，提供 Python、Ruby、Java、Go、PHP、Elixir、C#、TypeScript（Node/Bun/Wasm/Deno）等多语言绑定。它专注于对 75+ 种文件格式的快速、结构化内容提取，涵盖 PDF、Office 文档、HTML、图片等主流格式。
 
-## 技术栈
+## 这个集成做了什么
 
-本项目使用现代前端技术构建：
+langchain-kreuzberg 是一个 LangChain Document Loader，封装了 Kreuzberg 的内容提取能力。它具备以下特性：
 
-```typescript
-const techStack = {
-  framework: 'Svelte 5',
-  bundler: 'Vite 8.0 (Rolldown)',
-  styling: 'Tailwind CSS 4',
-  markdown: 'marked',
-  language: 'TypeScript'
-}
-```
+- **开箱即用**，支持 75+ 种文件格式
+- **真正的异步提取**，底层由 Rust 的 tokio 运行时驱动
+- **丰富的元数据输出**，生成的 LangChain Document 对象包含语言检测、质量评分、关键词提取等结构化信息
 
-## Markdown 语法示例
+## 为什么这很重要
 
-### 标题层级
+大多数 RAG 流水线的瓶颈出在数据摄入层——不一致的内容提取、缺失的元数据、各种格式的边界情况，这些都会直接降低下游检索的质量。
 
-使用 `#` 符号表示标题，支持 1-6 级：
+我们的思路是：**在数据进入 LangChain 之前，先把输入层做好**。通过这个集成，让下游的检索更可靠、更易于规模化。
 
-#### 四级标题
-##### 五级标题
-###### 六级标题
+## 了解更多
 
-### 文本样式
+- **GitHub 仓库**：https://github.com/kreuzberg-dev/langchain-kreuzberg
+- **深入阅读**：我们在 Medium 博客发表了第一篇文章，详细介绍了基于 Kreuzberg 和 LangChain 构建 RAG 流水线的工作原理：https://medium.com/@kreuzberg/how-a-rag-pipeline-works-with-kreuzberg-and-langchain-a91bd4695da7
+- **Kreuzberg 主仓库**：https://github.com/kreuzberg-dev/kreuzberg
 
-- **粗体文本** 使用 `**文本**`
-- *斜体文本* 使用 `*文本*`
-- ***粗斜体*** 使用 `***文本***`
-- ~~删除线~~ 使用 `~~文本~~`
-- `行内代码` 使用反引号包裹
-
-### 列表
-
-#### 无序列表
-- 第一项
-- 第二项
-- 第三项
-
-#### 有序列表
-1. 步骤一
-2. 步骤二
-3. 步骤三
-
-#### 任务列表
-- [x] 完成项目重构
-- [x] 添加 Tailwind CSS
-- [ ] 添加更多功能
-
-### 引用
-
-> 代码是写给人看的，顺便让机器执行。
->
-> — Donald Knuth
-
-### 代码块
-
-支持多种语言的语法高亮：
-
-```javascript
-// JavaScript 示例
-function greet(name) {
-  console.log(`Hello, ${name}!`)
-}
-
-greet('World')
-```
-
-```python
-# Python 示例
-def fibonacci(n):
-    if n <= 1:
-        return n
-    return fibonacci(n-1) + fibonacci(n-2)
-
-print(fibonacci(10))
-```
-
-### 表格
-
-| 功能 | 描述 | 状态 |
-|------|------|------|
-| 实时预览 | Markdown 即时渲染 | ✅ |
-| 主题切换 | 亮色/暗色模式 | ✅ |
-| 一键复制 | 复制到剪贴板 | ✅ |
-
-### 链接
-
-这是一个 [示例链接](https://example.com)，使用 `[文本](URL)` 语法。
-
-### 分隔线
-
-使用三个或更多的 `*` 或 `-` 创建分隔线：
+欢迎反馈与交流，也欢迎在 GitHub 上给我们一个 Star。
 
 ---
-
-## 使用说明
-
-1. 在左侧编辑区输入 Markdown 内容
-2. 右侧预览区实时显示渲染效果
-3. 点击右下角「复制」按钮
-4. 打开微信公众号编辑器，直接粘贴即可
-
-**提示**：点击右上角的主题切换按钮，可以在亮色和暗色模式之间切换。
-
----
-
-*Markdown WeChat - 让公众号排版更简单*
