@@ -454,7 +454,7 @@ html, body {
 
 .preview-wrapper code:not(pre code) {
   font-family: var(--content-code-font);
-  font-size: 0.85em;
+  font-size: 0.92em;
   background: var(--content-code-bg);
   color: var(--content-code-text);
   padding: 0.15em 0.4em;
@@ -474,7 +474,7 @@ html, body {
 
 .preview-wrapper pre code {
   font-family: var(--content-code-font);
-  font-size: 13px;
+  font-size: 14.5px;
   line-height: 1.6;
   color: var(--content-code-text);
 }

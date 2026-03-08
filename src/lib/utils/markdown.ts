@@ -42,12 +42,12 @@ renderer.code = ({ text, lang }: { text: string; lang?: string }) => {
     `<span class="line-number">${i + 1}</span>${line}`
   ).join('\n')
 
-  return `<pre class="prettyprint linenums language-${language}" style="font-size: 10px;line-height: 12px"><code class="language-${language}" style="font-size: 10px;line-height: 12px">${numberedLines}</code></pre>`
+  return `<pre class="prettyprint linenums language-${language}" style="font-size: 14px;line-height: 22px"><code class="language-${language}" style="font-size: 14px;line-height: 22px">${numberedLines}</code></pre>`
 }
 
 // 自定义行内代码渲染
 renderer.codespan = ({ text }: { text: string }) => {
-  return `<code class="prettyprint code-in-text" style="font-size: 16px;line-height: 18px">${text}</code>`
+  return `<code class="prettyprint code-in-text" style="font-size: 15px;line-height: 22px">${text}</code>`
 }
 
 marked.setOptions({
