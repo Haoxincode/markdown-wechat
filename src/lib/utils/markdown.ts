@@ -79,12 +79,23 @@ export function convertMarkdown(markdown: string): string {
   html = processTaskList(html)
 
   // 处理列表项内容包装
-  html = html.replace(/<li>(.*?)<\/li>/g, (_, content: string) => {
-    // 如果内容以 <p> 开头，去掉 <p> 标签
-    if (content.startsWith('<p>')) {
-      content = content.slice(3, -4)
-    }
-    return `<li><span><span>${content}</span></span></li>`
+  // 为无序列表项添加 - 前缀（微信不支持 ::before 伪元素）
+  html = html.replace(/<ul>([\s\S]*?)<\/ul>/g, (match) => {
+    return match.replace(/<li>(.*?)<\/li>/g, (_, content: string) => {
+      if (content.startsWith('<p>')) {
+        content = content.slice(3, -4)
+      }
+      return `<li><span><span style="margin-right:0.5em">-</span><span>${content}</span></span></li>`
+    })
+  })
+  // 处理有序列表项
+  html = html.replace(/<ol[^>]*>([\s\S]*?)<\/ol>/g, (match) => {
+    return match.replace(/<li>(.*?)<\/li>/g, (_, content: string) => {
+      if (content.startsWith('<p>')) {
+        content = content.slice(3, -4)
+      }
+      return `<li><span><span>${content}</span></span></li>`
+    })
   })
 
   // 收集外部链接，追加到文末作为引用
